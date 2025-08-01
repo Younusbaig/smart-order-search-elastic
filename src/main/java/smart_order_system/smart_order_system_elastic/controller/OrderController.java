@@ -24,4 +24,5 @@ public class OrderController {
     public List<OrderDocument> search(@RequestParam String customer) {
         return service.searchByCustomer(customer);
     }
+
 }

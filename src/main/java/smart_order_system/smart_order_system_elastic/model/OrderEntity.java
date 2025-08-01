@@ -1,46 +1,32 @@
 package smart_order_system.smart_order_system_elastic.model;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import smart_order_system.smart_order_system_elastic.model.enums.Priority;
+import smart_order_system.smart_order_system_elastic.model.enums.Status;
 
-@Entity
-@Table(name = "orders")
+import java.time.LocalDateTime;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "orders")
 public class OrderEntity {
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        private String id;
         private String customerName;
-        private String status;
+        private String customerEmail;
+        private Status status;
         private Double amount;
+        private Priority priority;
+        private LocalDateTime oderDate;
+        private LocalDateTime deliveryDate;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
 
-        public Long getId() {
-                return id;
-        }
 
-        public void setId(Long id) {
-                this.id = id;
-        }
 
-        public String getCustomerName() {
-                return customerName;
-        }
-
-        public void setCustomerName(String customerName) {
-                this.customerName = customerName;
-        }
-
-        public String getStatus() {
-                return status;
-        }
-
-        public void setStatus(String status) {
-                this.status = status;
-        }
-
-        public Double getAmount() {
-                return amount;
-        }
-
-        public void setAmount(Double amount) {
-                this.amount = amount;
-        }
 }
