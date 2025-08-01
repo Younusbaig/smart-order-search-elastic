@@ -2,6 +2,9 @@ package smart_order_system.smart_order_system_elastic.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import smart_order_system.smart_order_system_elastic.model.OrderDocument;
@@ -41,6 +44,22 @@ public class OrderService {
 
     public List<OrderDocument> searchByCustomer(String customer) {
         return esRepo.findByCustomerNameContainingIgnoreCase(customer);
+    }
+
+    public Page<OrderEntity> searchOrders(String customerName, String status, int page, int size ){
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (customerName != null && status != null){
+            return orderRepo.findByCustomerNameContainingIgnoreCaseAndStatus(customerName, status, pageable);
+        } else if (customerName != null) {
+            return orderRepo.findByCustomerNameContainingIgnoreCase(customerName, pageable);
+        } else if (status != null) {
+            return orderRepo.findByStatus(status, pageable);
+        }
+        else {
+            return orderRepo.findAll(pageable);
+        }
+
     }
 
     public OrderEntity getById(String id){

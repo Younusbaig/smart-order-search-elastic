@@ -3,6 +3,7 @@ package smart_order_system.smart_order_system_elastic.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 import smart_order_system.smart_order_system_elastic.model.OrderDocument;
 import smart_order_system.smart_order_system_elastic.model.OrderEntity;
 import smart_order_system.smart_order_system_elastic.service.OrderService;
@@ -25,4 +26,11 @@ public class OrderController {
         return service.searchByCustomer(customer);
     }
 
+    @GetMapping("/getAll")
+    public Page<OrderEntity> searchOrders(@RequestParam(required = false) String customerName,
+                                          @RequestParam(required = false) String status,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10")int size){
+        return service.searchOrders(customerName, status, page, size);
+    }
 }
