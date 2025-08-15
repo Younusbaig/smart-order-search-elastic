@@ -37,8 +37,8 @@ jobs:
           ME_CONFIG_MONGODB_SERVER: mongo
           ME_CONFIG_MONGODB_PORT: 27017
           ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
-          ME_CONFIG_BASICAUTH_USERNAME: admin
-          ME_CONFIG_BASICAUTH_PASSWORD: admin
+          ME_CONFIG_BASICAUTH_USERNAME: root
+          ME_CONFIG_BASICAUTH_PASSWORD: rootpass
         options: >-
           --health-cmd "curl --silent --fail http://localhost:8081 || exit 1"
           --health-interval 10s
